@@ -61,8 +61,8 @@ func main() {
 		os.RemoveAll(p)
 	}
 
-	os.MkdirAll(p, os.ModePerm)
-	fmt.Println("forking in " + p)
+	// os.MkdirAll(p, os.ModePerm)
+	// fmt.Println("forking in " + p)
 
 	execCmd("go", "get", fqr).
 		Or("go get failed....")
@@ -71,8 +71,6 @@ func main() {
 
 	execCmd("git", "remote", "rename", "origin", "upstream").
 		Or("git remote rename failed....")
-
-	//  git remote add origin https://github.com/ScottMansfield/netns
 
 	execCmd("git", "remote", "add", "origin", "git@github.com:"+r+".git").
 		Or("git remote add failed....")
