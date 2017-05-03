@@ -61,9 +61,6 @@ func main() {
 		os.RemoveAll(p)
 	}
 
-	// os.MkdirAll(p, os.ModePerm)
-	// fmt.Println("forking in " + p)
-
 	execCmd("go", "get", fqr).
 		Or("go get failed....")
 
@@ -72,7 +69,9 @@ func main() {
 	execCmd("git", "remote", "rename", "origin", "upstream").
 		Or("git remote rename failed....")
 
-	execCmd("git", "remote", "add", "origin", "git@github.com:"+r+".git").
+	v := strings.Split(r, "/")
+	v[0] = args[0]
+	execCmd("git", "remote", "add", "origin", "git@github.com:"+strings.Join(v, "/")+".git").
 		Or("git remote add failed....")
 
 	fmt.Println("All done!")
