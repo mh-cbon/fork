@@ -1,3 +1,4 @@
+// Package fork helps to fork a repository in your GOPATH.
 package main
 
 import (
@@ -9,13 +10,20 @@ import (
 	"strings"
 )
 
+var name = "fork"
+var version = "HEAD"
+
 func main() {
 
+	var force bool
 	var help bool
 	var h bool
 
 	flag.BoolVar(&h, "h", false, "Show help")
 	flag.BoolVar(&help, "help", false, "Show help")
+	flag.BoolVar(&force, "force", false, "force")
+
+	flag.Parse()
 
 	if h || help {
 		showHelp()
@@ -29,15 +37,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	flag.Parse()
 	args := flag.Args()
 
 	if len(args) < 1 {
 		fmt.Println("Wrong usage")
-		fmt.Println("  fork yourID user/repo")
 		fmt.Println("")
-		fmt.Println("  yourID: your username")
-		fmt.Println("  user/repo: an identifier like user/repo")
+		showHelp()
 		os.Exit(1)
 	}
 
@@ -47,6 +52,15 @@ func main() {
 
 	//todo: add more detection mechanism
 	p := filepath.Join(gopath, "src", "github.com", r)
+	if _, err := os.Stat(p); !os.IsNotExist(err) && !force {
+		fmt.Println("the repo was already forked!")
+		fmt.Println("")
+		fmt.Println("use -force to ignore this error.")
+		os.Exit(1)
+	} else if !os.IsNotExist(err) {
+		os.RemoveAll(p)
+	}
+
 	os.MkdirAll(p, os.ModePerm)
 	fmt.Println("forking in " + p)
 
@@ -82,16 +96,24 @@ Read more: http://blog.sgmansfield.com/2016/06/working-with-forks-in-go/
 }
 
 func showHelp() {
-	fmt.Println(`fork
-Fork a remote repository to propose a change.
+	fmt.Printf(`%v - %v
+	Fork a remote repository to propose a change.
 
 Example
   fork yourID user/repo
+  fork -force yourID user/repo
+  fork -help
 
 Options
     yourID     your username
     user/repo  an identifier like user/rep
-`)
+
+Flags
+    -force  Force continue if the directory exists.
+    -help   Show this help
+    -h      Show this help
+
+`, name, version)
 }
 
 type thenWhat struct {

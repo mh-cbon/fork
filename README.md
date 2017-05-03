@@ -1,24 +1,48 @@
----
-License: MIT
-LicenseFile: LICENSE
-LicenseColor: yellow
----
-# {{.Name}}
+# fork
 
-{{template "license/shields" .}}
+[![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-{{pkgdoc}}
+Package fork helps to fork a repository in your GOPATH.
 
-# {{toc 5}}
+
+# TOC
+- [Install](#install)
+  - [go](#go)
+- [Usage](#usage)
+  - [$ fork -help](#-fork--help)
+- [Cli examples](#cli-examples)
+- [Recipes](#recipes)
+  - [Update the README](#update-the-readme)
+- [Credits](#credits)
 
 # Install
 
 #### go
-{{template "go/install" .}}
+```sh
+go get github.com/mh-cbon/fork
+```
 
 # Usage
 
-#### $ {{exec "fork" "-help" | color "sh"}}
+#### $ fork -help
+```sh
+fork - HEAD
+	Fork a remote repository to propose a change.
+
+Example
+  fork yourID user/repo
+  fork -force yourID user/repo
+  fork -help
+
+Options
+    yourID     your username
+    user/repo  an identifier like user/rep
+
+Flags
+    -force  Force continue if the directory exists.
+    -help   Show this help
+    -h      Show this help
+```
 
 # Cli examples
 
