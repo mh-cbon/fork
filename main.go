@@ -77,19 +77,25 @@ func main() {
 	fmt.Println("All done!")
 	fmt.Println("")
 	execCmd("git", "remote", "-v")
-	fmt.Println(`
-You can now create a new branch,
+	fmt.Printf(`
+The fork is available at
+	%v
+
+To push your fork on github, create a bare repository in github then run
+	git push -u origin master
+
+To create a new branch,
   git checkout -t -b awesome-feature
 
-Then put your changes on your origin,
+To upload your fork changes
   git push origin awesome-feature
 
-Do not forget to pull the changes from upstream to avoid merge conflicts.,
+To avoid merge conflicts, pull the changes from upstream
   git fetch upstream
   git merge upstream/master
 
 Read more: http://blog.sgmansfield.com/2016/06/working-with-forks-in-go/
-`)
+`, p)
 }
 
 func showHelp() {
@@ -98,17 +104,33 @@ func showHelp() {
 
 Example
   fork yourID user/repo
+  fork mh-cbon kaneshin/pigeon
   fork -force yourID user/repo
   fork -help
 
 Options
     yourID     your username
-    user/repo  an identifier like user/rep
+    user/repo  an identifier like user/repo
 
 Flags
     -force  Force continue if the directory exists.
     -help   Show this help
     -h      Show this help
+
+Good to know
+
+	To push your fork on github, create a bare repository in github then run
+		git push -u origin master
+
+	To create a new branch,
+	  git checkout -t -b awesome-feature
+
+	To upload your fork changes
+	  git push origin awesome-feature
+
+	To avoid merge conflicts, pull the changes from upstream
+	  git fetch upstream
+	  git merge upstream/master
 
 `, name, version)
 }
