@@ -82,7 +82,7 @@ The fork is available at
 	%v
 
 To push your fork on github, create a bare repository in github then run
-	git push -u origin master
+  git push -u origin master
 
 To create a new branch,
   git checkout -t -b awesome-feature
@@ -120,7 +120,7 @@ Flags
 Good to know
 
 	To push your fork on github, create a bare repository in github then run
-		git push -u origin master
+	  git push -u origin master
 
 	To create a new branch,
 	  git checkout -t -b awesome-feature
